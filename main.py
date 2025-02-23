@@ -30,8 +30,8 @@ async def get_info():
 
 @app.get("/info/currency")
 async def get_currency(
-    data: str = Query(None, description="date in YYYY-MM-DD format"),
-    curr: str = Query(None, description="currency corresponding ISO 4217 standard")
+    date: str = Query(None, description="date in YYYY-MM-DD format"),
+    currency: str = Query(None, description="currency corresponding ISO 4217 standard")
 ):
     """
     Endpoint to fetch the exchange rate for the specified currency for the specified date.
@@ -43,7 +43,7 @@ async def get_currency(
     Returns:
         current_value: Exchange rate for the specified currency for the specified date.
     """
-    current_value = cbrf.exchange_rate(data, curr)
+    current_value = cbrf.exchange_rate(date, currency)
     return current_value
 
 if __name__ == "__main__":
