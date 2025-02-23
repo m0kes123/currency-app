@@ -37,8 +37,8 @@ async def get_currency(
     Endpoint to fetch the exchange rate for the specified currency for the specified date.
 
     Args:
-        data (str, optional): Date to retrieve exchange rate of currency for, current date will be used, if date is not specified.
-        curr (str, optional): Name of the currency corresponding ISO 4217 standard.
+        date (str, optional): Date to retrieve exchange rate of currency for, current date will be used, if date is not specified.
+        currency (str, optional): Name of the currency corresponding ISO 4217 standard.
 
     Returns:
         current_value: Exchange rate for the specified currency for the specified date.
