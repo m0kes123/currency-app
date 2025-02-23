@@ -1,4 +1,4 @@
-[project]
+[tool.poetry]
 name = "currency-app"
 version = "0.1.0"
 description = ""
@@ -6,6 +6,8 @@ authors = [
     {name = "Maxim Antropov",email = "m4ksek@gmail.com"}
 ]
 readme = "README.md"
+
+[tool.poetry.dependencies]
 requires-python = ">=3.12"
 dependencies = [
     "fastapi-cli (>=0.0.7,<0.0.8)",
