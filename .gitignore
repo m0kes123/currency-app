@@ -1,4 +1,4 @@
 .vscode
 __pychache__
-poetry.lock
 .env
+venv
