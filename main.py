@@ -34,14 +34,14 @@ async def get_currency(
     currency: str = Query(None, description="currency corresponding ISO 4217 standard")
 ):
     """
-    Endpoint to fetch the exchange rate for the specified currency for the specified date.
+    Endpoint to fetch the exchange rate of the specified currency for the specified date.
 
     Args:
         date (str, optional): Date to retrieve exchange rate of currency for, current date will be used, if date is not specified.
-        currency (str, optional): Name of the currency corresponding ISO 4217 standard.
+        currency (str, optional): Name of the currency corresponding ISO 4217 standard, all currencies available for the Cental Bank of the Russian Federation will be used.
 
     Returns:
-        current_value: Exchange rate for the specified currency for the specified date.
+        current_value: Exchange rate of the specified currency for the specified date.
     """
     current_value = cbrf.exchange_rate(date, currency)
     return current_value
