@@ -9,13 +9,12 @@
 Для запуска приложения выполните следующие шаги:
 
 1. Установите зависимости:
-   ```sh
-   poetry install
-   poetry shell
+   ```
+   pip install -r requirements.txt
    ```
 2. Запустите сервер FastAPI:
-   ```sh
-   uvicorn app.main:app --reload
+   ```
+   python main.py
    ```
 
 После запуска API будет доступно по адресу: `http://127.0.0.1:8000`

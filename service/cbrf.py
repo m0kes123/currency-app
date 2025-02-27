@@ -1,6 +1,48 @@
 import xml.etree.ElementTree as ET
 from datetime import date, datetime
 import requests
+import re
+
+
+ISO_CURRENCY_CODES = {
+    "AUD", "AZN", "GBP", "AMD", "BYN", "BGN", "BRL", "HUF", "VND", "HKD", 
+    "GEL", "DKK", "AED", "USD", "EUR", "EGP", "INR", "IDR", "KZT", "CAD", 
+    "QAR", "KGS", "CNY", "MDL", "NZD", "NOK", "PLN", "RON", "XDR", "SGD", 
+    "TJS", "THB", "TRY", "TMT", "UZS", "UAH", "CZK", "SEK", "CHF", "RSD", 
+    "ZAR", "KRW", "JPY"
+}
+
+def validate_date(date_str: str) -> bool:
+    """
+    Checks if the string matches the YYYY-MM-DD format and is a valid date.
+
+    Args:
+        date_str (str): Date string to validate.
+
+    Returns:
+        bool: True if the date is valid and not in the future, otherwise False.
+    """    
+    if not re.match(r'^\d{4}-\d{2}-\d{2}$', date_str):
+        return False
+    try:
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+        if date_obj.date() > date.today():
+            return False
+        return True
+    except ValueError:
+        return False
+    
+def validate_currency(curr: str) -> bool:
+    """
+    Checks if the currency code is valid according to ISO 4217.
+
+    Args:
+        curr (str): Currency code to validate.
+
+    Returns:
+        bool: True if the currency code is valid, otherwise False.
+    """
+    return curr in ISO_CURRENCY_CODES
 
 def exchange_rate(data: str, curr: str):
     """
@@ -11,26 +53,36 @@ def exchange_rate(data: str, curr: str):
         curr (str): currency corresponding ISO 4217 standard"
 
     Returns:
-        exchange_rate (str): Exchange rate for the specified currency for the specified date.
+        dict: A dictionary containing the exchange rate for the specified currency and date.
+              If an error occurs, returns a dictionary with an "error" key containing the error message.
     """    
-    if data == None:
+    if data is None:
         data = date.today()
         formatted_date = data.strftime("%d/%m/%Y")
     else:
+        if not validate_date(data):
+            return {"error": "Invalid date format or future date. Expected format: YYYY-MM-DD"}
         date_obj = datetime.strptime(data, "%Y-%m-%d")
         formatted_date = date_obj.strftime("%d/%m/%Y")
+    
+    if curr is not None and not validate_currency(curr):
+        return {"error": f"Invalid currency code. Expected one of: {ISO_CURRENCY_CODES}"}
+    
     url = f'https://www.cbr.ru/scripts/XML_daily.asp?date_req={formatted_date}'
     response = requests.get(url=url)
 
     if response.status_code == 200:
         root = ET.fromstring(response.content)
 
+        if not root.findall('Valute'):
+            return {"error": "No data available from the Central Bank of Russia for the specified date."}
+        
         currency = {}
         exchange_rate = {
             "service": "currency", "data": currency
         }
 
-        if curr == None:
+        if curr is None:
             for cur in root.findall('Valute'):
                 char_code = cur.find('CharCode').text
                 value = cur.find('Value').text
@@ -45,3 +97,5 @@ def exchange_rate(data: str, curr: str):
 
                     currency[char_code] = float(value.replace(',','.'))
             return exchange_rate
+    else:
+        return {"error": f"Failed to fetch data. HTTP status code: {response.status_code}"}

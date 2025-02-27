@@ -36,7 +36,7 @@ def setup_routes(app: FastAPI):
             currency (str, optional): Name of the currency corresponding ISO 4217 standard, all currencies available for the Cental Bank of the Russian Federation will be used.
 
         Returns:
-            current_value: Exchange rate of the specified currency for the specified date.
+            current_value (dict): Exchange rate of the specified currency for the specified date.
         """
         current_value = cbrf.exchange_rate(date, currency)
         return current_value
