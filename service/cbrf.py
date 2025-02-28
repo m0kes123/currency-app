@@ -22,8 +22,6 @@ def validate_date(date_str: str) -> bool:
     Returns:
         bool: True if the date is valid and not in the future, otherwise False.
     """    
-    if not re.match(r'^\d{4}-\d{2}-\d{2}$', date_str):
-        return False
     try:
         date_obj = datetime.strptime(date_str, "%Y-%m-%d")
         if date_obj.date() > date.today():
