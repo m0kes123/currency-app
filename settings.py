@@ -8,7 +8,7 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
-    VERSION: str
-    PORT: int
+    VERSION: str = "0.1.0"
+    PORT: int = 8000
 
 settings = Settings()
