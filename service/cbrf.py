@@ -1,16 +1,9 @@
 import xml.etree.ElementTree as ET
 from datetime import date, datetime
 import requests
-import re
+from pathlib import Path
+import json
 
-
-ISO_CURRENCY_CODES = {
-    "AUD", "AZN", "GBP", "AMD", "BYN", "BGN", "BRL", "HUF", "VND", "HKD", 
-    "GEL", "DKK", "AED", "USD", "EUR", "EGP", "INR", "IDR", "KZT", "CAD", 
-    "QAR", "KGS", "CNY", "MDL", "NZD", "NOK", "PLN", "RON", "XDR", "SGD", 
-    "TJS", "THB", "TRY", "TMT", "UZS", "UAH", "CZK", "SEK", "CHF", "RSD", 
-    "ZAR", "KRW", "JPY"
-}
 
 def validate_date(date_str: str) -> bool:
     """
@@ -29,7 +22,12 @@ def validate_date(date_str: str) -> bool:
         return True
     except ValueError:
         return False
-    
+
+CURRENCY_CODES_FILE = Path(__file__).parent / "currency_codes.json"
+
+with open(CURRENCY_CODES_FILE, "r", encoding="utf-8") as file:
+    ISO_CURRENCY_CODES = set(json.load(file))
+
 def validate_currency(curr: str) -> bool:
     """
     Checks if the currency code is valid according to ISO 4217.
