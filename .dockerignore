@@ -3,3 +3,4 @@ venv
 **/__pychache__
 *.md
 docker-compose.yml
+.gitlab-ci.yml
