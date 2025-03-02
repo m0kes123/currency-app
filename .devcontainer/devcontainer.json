@@ -1,0 +1,17 @@
+{
+    "name": "currency_app",
+    "image":"python:3.12.3-alpine3.20@sha256:ff11a2170938ae4e4f931435fd47f64b0f6efabd471aef37d20ad58f827ba19c",
+    "privileged": true,
+    "workspaceFolder": "${localWorkspaceFolder}",
+    "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
+    "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/root/.gitconfig,type=bind,consistency=cached"
+    ],
+    "overrideCommand": true,
+    "customizations": {
+        "vscode": {
+            "extensions": []
+        }
+    },
+    "postCreateCommand": "pip install -r requirements.txt"
+}
