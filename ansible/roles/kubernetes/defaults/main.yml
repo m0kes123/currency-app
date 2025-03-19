@@ -1,0 +1,6 @@
+---
+kubernetes_packages:
+  - kubelet
+  - kubeadm
+
+kubernetes_version: 'v1.32'

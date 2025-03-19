@@ -1,0 +1,6 @@
+---
+- name: Installing CRI-O, Kubelet and Kubeadm
+  hosts: all
+  roles:
+    - crio
+    - kubernetes
