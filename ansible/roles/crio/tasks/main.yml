@@ -1,0 +1,3 @@
+---
+- name: Install cri-o
+  ansible.builtin.include_tasks: install_crio.yml

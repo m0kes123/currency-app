@@ -1,0 +1,7 @@
+galaxy_info:
+  author: Maxim Antropov
+  description: your role description
+
+  min_ansible_version: "2.13"
+
+  license: MIT

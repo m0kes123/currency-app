@@ -1,0 +1,30 @@
+---
+- name: Ensure dependencies are installed.
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - gnupg2
+      - curl
+      - software-properties-common
+    state: present
+    update-cache: true
+
+- name: Download cri-o gpg-key.
+  ansible.builtin.apt_key:
+    url: "https://pkgs.k8s.io/addons:/cri-o:/stable:/{{ crio_version }}/deb/Release.key"
+    state: present
+    keyring: /etc/apt/keyrings/cri-o-apt-keyring.gpg
+
+- name: Add cri-o repo
+  ansible.builtin.apt_repository:
+    repo: 'deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/stable:/{{ crio_version }}/deb/ /'
+    state: present
+    filename: cri-o
+    update_cache: true
+
+- name: Ensure cri-o is installed
+  ansible.builtin.apt:
+    name: cri-o
+    state: present
+    update_cache: true
