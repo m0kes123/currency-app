@@ -1,5 +1,9 @@
 all:
   hosts:
+    master:
+      ansible_host: 37.230.195.207
+      ansible_port: 2201
+      ansible_user: root
     vm_1:
       ansible_host: 37.230.195.207
       ansible_port: 2202
