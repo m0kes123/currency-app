@@ -116,6 +116,17 @@ server {
 }
 ```
 
+### 6. Создание Helm Chart
+
+Для манифеста написан Helm Chart.
+Воспользоваться можно выполнив следующие команды:
+
+```bash
+helm repo add currency-app https://m0kes123.github.io/currency-app-helm/
+helm repo update
+helm install currency-app currency-app/currency-app
+```
+
 ## Результат
 
 Приложение развернуто в кластере и дает ответ на запросы по домену:
