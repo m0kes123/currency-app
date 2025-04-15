@@ -4,3 +4,4 @@ class Information(BaseModel):
     version: str
     service: str
     author: str
+    hostname: str

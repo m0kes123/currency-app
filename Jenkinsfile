@@ -1,6 +1,9 @@
 node {
 
     def tag = env.BUILD_NUMBER
+    def helmReleaseName = "currency-app"
+    def chartPath = "/currency-app/currency-app"
+    def helmRepoUrl = "https://raw.githubusercontent.com/m0kes123/currency-app-helm/main/"
 
     try{
         stage('Checkout') {
@@ -42,6 +45,26 @@ node {
         stage('Deploy') {
             script {
                 sh 'docker compose up -d'
+            }
+        }
+        
+        stage('Helm Deploy') {
+            script {
+                withCredentials([file(credentialsId: 'k3s-kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh """
+                        export KUBECONFIG=${KUBECONFIG}
+                    """
+                    sh """
+                        helm repo list | grep currency-app || helm repo add currency-app ${helmRepoUrl}
+                        helm repo update
+                    """
+                    sh """
+                        helm upgrade --install ${helmReleaseName} currency-app/currency-app \
+                        --set app.image.tag=${tag} \
+                        --atomic \
+                        --cleanup-on-fail
+                    """
+                }
             }
         }
     } finally{

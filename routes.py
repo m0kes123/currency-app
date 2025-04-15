@@ -7,7 +7,8 @@ from settings import settings
 information = Information(
     version=settings.VERSION,
     service='currency',
-    author='m.antropov'
+    author='m.antropov',
+    hostname=settings.HOSTNAME
 )
 
 today = date.today()

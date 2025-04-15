@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -8,7 +9,8 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
-    VERSION: str = "0.1.0"
+    VERSION: str = "0.1.1"
     PORT: int = 8000
+    HOSTNAME: str = os.getenv('HOSTNAME', 'localhost')
 
 settings = Settings()
