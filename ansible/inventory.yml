@@ -1,14 +1,5 @@
 all:
   hosts:
     master:
-      ansible_host: 37.230.195.207
-      ansible_port: 2201
-      ansible_user: root
-    vm_1:
-      ansible_host: 37.230.195.207
-      ansible_port: 2202
-      ansible_user: root
-    vm_2:
-      ansible_host: 37.230.195.207
-      ansible_port: 2203
-      ansible_user: root
+      ansible_host: 84.201.155.47
+      ansible_user: master
