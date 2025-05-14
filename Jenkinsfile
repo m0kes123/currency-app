@@ -42,11 +42,11 @@ node {
             }
         }
 
-        stage('Deploy') {
-            script {
-                sh 'docker compose up -d'
-            }
-        }
+    // stage('Deploy') {
+    //     script {
+    //         sh 'docker compose up -d'
+    //     }
+    // }
         
         stage('Helm Deploy') {
             script {
