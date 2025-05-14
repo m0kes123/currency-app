@@ -2,7 +2,7 @@ services:
   currency_app:
     container_name: cur_app_cont
     environment:
-      - VERSION=0.1.5
+      - VERSION=0.1.6
       - PORT=8000
     build: 
       context: .
