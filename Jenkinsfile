@@ -55,11 +55,11 @@ node {
                         export KUBECONFIG=${KUBECONFIG}
                     """
                     sh """
-                        helm repo list | grep currency-app || helm repo add currency-app ${helmRepoUrl}
+                        helm repo list | grep myrepo || helm repo add myrepo ${helmRepoUrl}
                         helm repo update
                     """
                     sh """
-                        helm upgrade --install ${helmReleaseName} currency-app/currency-app \
+                        helm upgrade --install ${helmReleaseName} myrepo/currency-app \
                         --set app.image.tag=${tag} \
                         --atomic \
                         --cleanup-on-fail
