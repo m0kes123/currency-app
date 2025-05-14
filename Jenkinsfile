@@ -71,7 +71,7 @@ node {
         stage('Cleanup') {
             cleanWs()
             sh 'docker logout || true'
-            sh 'docker stop cur_app_cont'
+            // sh 'docker stop cur_app_cont'
             sh 'docker system prune -af'
         }
     }
