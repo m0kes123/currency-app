@@ -9,7 +9,7 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
-    VERSION: str = "0.1.5"
+    VERSION: str = "0.1.6"
     PORT: int = 8000
     HOSTNAME: str = os.getenv('HOSTNAME', 'localhost')
 
